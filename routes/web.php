@@ -16,6 +16,7 @@ use App\Memo;
 */
 
 
+Route::middleware('auth.basic')->group(function () {
 Route::get('/', 'MemosController@index')->name('index');
 
 Route::get('/create', 'MemosController@create')->name('create');
@@ -24,4 +25,6 @@ Route::post('/store', 'MemosController@store')->name('store');
 Route::get('/edit', 'MemosController@edit')->name('edit');
 Route::post('/update', 'MemosController@update')->name('update');
 
-Route::get('/delete', 'MemosController@delete')->name('delete');
+Route::delete('/delete', 'MemosController@delete')->name('delete');
+
+});

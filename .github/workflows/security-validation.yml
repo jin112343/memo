@@ -1,0 +1,44 @@
+name: Security validation
+on:
+  push:
+    branches: [master, security/laravel-13-20261025]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  php:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962
+        with:
+          php-version: '8.5.12'
+          extensions: mbstring, pdo_sqlite, sqlite3, xml, curl, fileinfo
+          tools: composer:v2
+          coverage: none
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version-file: '.nvmrc'
+      - run: npm ci
+      - run: npm run build
+      - run: npm audit --audit-level=moderate
+      - run: php --version > php-version.txt
+      - run: composer install --no-interaction --prefer-dist --no-progress --no-scripts
+      - run: cp .env.example .env
+      - run: composer dump-autoload --no-interaction
+      - run: php artisan key:generate --no-interaction
+      - run: vendor/bin/phpunit --log-junit junit.xml
+      - run: composer audit --locked --no-interaction
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: security-validation
+          retention-days: 1
+          path: |
+            composer.lock
+            junit.xml
+            php-version.txt

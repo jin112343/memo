@@ -9,11 +9,11 @@
 
     @if($errors->any())
       @foreach ($errors->all() as $error)
-        <p class="text-right text-black-50">{{ $error }}</p>
+        <p class="text-end text-black-50">{{ $error }}</p>
       @endforeach
     @endif
 
-    <div class="text-right mt-4">
+    <div class="text-end mt-4">
       <button type="submit" class="btn btn-outline-secondary btn-sm">更新</button>
       <a href="{{ route('index') }}" class="btn btn-outline-secondary btn-sm">キャンセル</a>
     </div>

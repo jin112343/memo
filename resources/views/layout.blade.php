@@ -6,19 +6,12 @@
 
         <title>MEMO</title>
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-
-        <!-- Bootstrap -->
-        <link rel="stylesheet"
-              href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-              crossorigin="anonymous">
+        @vite('resources/css/app.css')
 
     </head>
     <body class="vh-100 d-flex justify-content-center text-center">
         <div class="w-75 mt-3">
-            <div class="text-black-50 text-left border-bottom mt-5">
+            <div class="text-black-50 text-start border-bottom mt-5">
                 <h1>MEMO</h1>
             </div>
 

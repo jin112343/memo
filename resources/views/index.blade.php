@@ -20,7 +20,11 @@
 
             <div class="card-footer text-right">
               <a href="{{ route('edit', ['id'=>$memo->id])}}" class="text-info">編集</a>
-              <a href="{{ route('delete', ['id'=>$memo->id])}}" class="text-info">削除</a>
+              <form method="POST" action="{{ route('delete', ['id'=>$memo->id]) }}" class="d-inline">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-link text-info p-0">削除</button>
+              </form>
             </div>
 
           </div>
